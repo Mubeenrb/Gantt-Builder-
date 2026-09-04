@@ -159,16 +159,56 @@ CG.TaskTable = (function () {
   // differently from the body row's (e.g. once a cell contains flex-laid-out
   // children), producing a visibly misaligned/duplicated-looking header.
   var HANDLE_COL_W = 22;
+  var NAME_COL_DEFAULT_W = 220;
+  var MIN_COL_W = { name: 120, other: 56 };
+
+  // Column widths are user-adjustable (drag the handle at the right edge of
+  // a header cell) and persisted per project in settings.columnWidths, keyed
+  // by column id ('name' for the always-present Task Name column). Falls
+  // back to the built-in default width whenever nothing's been customized.
+  function getColWidth(project, colId, defaultWidth) {
+    var saved = project.settings.columnWidths;
+    return (saved && saved[colId]) || defaultWidth;
+  }
+
+  function setColWidth(project, colId, width, minWidth) {
+    var cur = Object.assign({}, project.settings.columnWidths || {});
+    cur[colId] = Math.max(minWidth, Math.round(width));
+    S.updateSettings(project.id, { columnWidths: cur });
+  }
+
+  function bindColumnResize(handleEl, colIndex, colId, project, minWidth) {
+    handleEl.addEventListener('mousedown', function (ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      var colEl = document.querySelectorAll('#task-table-colgroup col')[colIndex];
+      var startX = ev.clientX;
+      var startW = colEl.getBoundingClientRect().width;
+      handleEl.classList.add('active');
+      function onMove(mv) {
+        var w = Math.max(minWidth, startW + (mv.clientX - startX));
+        colEl.style.width = w + 'px';
+      }
+      function onUp(up) {
+        window.removeEventListener('mousemove', onMove);
+        window.removeEventListener('mouseup', onUp);
+        handleEl.classList.remove('active');
+        setColWidth(project, colId, startW + (up.clientX - startX), minWidth);
+      }
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onUp);
+    });
+  }
 
   function renderColgroup(project) {
     var colgroup = document.getElementById('task-table-colgroup');
     colgroup.innerHTML = '';
     var handleCol = el('col', null); handleCol.style.width = HANDLE_COL_W + 'px';
     colgroup.appendChild(handleCol);
-    var nameCol = el('col', null); nameCol.style.width = '220px';
+    var nameCol = el('col', null); nameCol.style.width = getColWidth(project, 'name', NAME_COL_DEFAULT_W) + 'px';
     colgroup.appendChild(nameCol);
     getVisibleColumnDefs(project).forEach(function (col) {
-      var c = el('col', null); c.style.width = col.width + 'px';
+      var c = el('col', null); c.style.width = getColWidth(project, col.id, col.width) + 'px';
       colgroup.appendChild(c);
     });
   }
@@ -180,9 +220,19 @@ CG.TaskTable = (function () {
     if (!project) return;
     var tr = document.createElement('tr');
     var thHandle = el('th', null); thHandle.innerHTML = '&nbsp;'; tr.appendChild(thHandle);
-    var thName = el('th', null); thName.textContent = 'Task Name'; tr.appendChild(thName);
-    getVisibleColumnDefs(project).forEach(function (col) {
-      var th = el('th', null); th.textContent = col.label; tr.appendChild(th);
+
+    var thName = el('th', 'resizable-th'); thName.textContent = 'Task Name';
+    var nameResize = el('span', 'col-resize-handle');
+    bindColumnResize(nameResize, 1, 'name', project, MIN_COL_W.name);
+    thName.appendChild(nameResize);
+    tr.appendChild(thName);
+
+    getVisibleColumnDefs(project).forEach(function (col, i) {
+      var th = el('th', 'resizable-th'); th.textContent = col.label;
+      var resize = el('span', 'col-resize-handle');
+      bindColumnResize(resize, i + 2, col.id, project, MIN_COL_W.other);
+      th.appendChild(resize);
+      tr.appendChild(th);
     });
     thead.appendChild(tr);
   }

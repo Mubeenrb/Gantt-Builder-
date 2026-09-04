@@ -25,7 +25,7 @@ CG.State = (function () {
       weekStart: 'mon', dateFormat: 'dd/MM/yyyy',
       rowHeight: 32, barHeight: 20, fontSize: 13, theme: 'light',
       visibleColumns: ['category', 'start', 'end', 'duration', 'progress'],
-      defaultZoom: 'month'
+      defaultZoom: 'month', columnWidths: {}
     };
   }
 

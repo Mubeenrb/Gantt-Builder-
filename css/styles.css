@@ -152,6 +152,12 @@ button, select, input, textarea {
   padding: 8px 8px; text-align: left; border-right: 1px solid rgba(255,255,255,0.08);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: default;
 }
+.task-table th.resizable-th { padding-right: 10px; }
+.task-table .col-resize-handle {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 6px;
+  cursor: col-resize; z-index: 6; touch-action: none;
+}
+.task-table .col-resize-handle:hover, .task-table .col-resize-handle.active { background: var(--accent); opacity: 0.6; }
 .task-table tbody td {
   padding: 0 8px; border-bottom: 1px solid var(--grid-line);
   height: var(--row-height); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
