@@ -21,6 +21,18 @@ If you ever move or edit the files, just refresh the browser tab — there's no 
 
 The original plan was an Electron desktop app, but Node.js/npm can't be installed on this machine (IT policy), which rules out any build tooling. This version trades a native `.exe` for a zero-install folder that runs directly in the browser you already have — the same approach the other hand-built dashboards in this project folder already use successfully.
 
+### Hosting it as a public website (optional)
+
+Because there's no server or database — every file here is static, and all data lives only in whoever's browser opens it — this folder can be published as-is to any static file host (GitHub Pages, Netlify, Vercel, an internal web server, etc.) with zero changes. Each visitor gets their own private, blank starting point; nobody's data is ever visible to anyone else, and nothing is stored centrally. It's already set up for **GitHub Pages**:
+
+1. Create a new **public** repository on GitHub (empty — don't add a README/.gitignore, this folder already has its own git history).
+2. `git remote add origin https://github.com/<you>/<repo-name>.git`
+3. `git push -u origin master`
+4. In the repo's **Settings → Pages**, set Source to "Deploy from a branch", branch `master`, folder `/ (root)`.
+5. Your app is live at `https://<you>.github.io/<repo-name>/` within a minute or two.
+
+All internal links in this app are relative, so it works correctly whether it's served from a domain root or a subpath like `/repo-name/`. The `.nojekyll` file at the root tells GitHub Pages to serve every file exactly as-is (Pages runs a Jekyll static-site build by default, which would otherwise ignore/mangle some of these plain files).
+
 ## 2. Where your data lives
 
 - **Autosave**: every change (adding a task, dragging a bar, editing a field) is saved automatically to your browser's local storage a few hundred milliseconds after you make it. Reopening `index.html` later restores exactly where you left off — including every open project tab.
