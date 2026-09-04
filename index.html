@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAPEX Gantt</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div id="app-root">
+
+  <header class="topbar">
+    <div class="brand">CAPEX Gantt</div>
+    <div id="project-tabs" class="project-tabs"></div>
+    <button id="btn-new-project" class="icon-btn" title="New project">+ Project</button>
+    <div class="topbar-spacer"></div>
+    <div id="save-status" class="save-status">Loading…</div>
+  </header>
+
+  <div id="toolbar" class="toolbar">
+    <div class="toolbar-group">
+      <button id="btn-add-task" class="tool-btn">+ Task</button>
+      <button id="btn-add-milestone" class="tool-btn">+ Milestone</button>
+      <button id="btn-indent" class="tool-btn" title="Indent (make sub-task)">Indent</button>
+      <button id="btn-outdent" class="tool-btn" title="Outdent">Outdent</button>
+      <button id="btn-delete-task" class="tool-btn danger" title="Delete selected task">Delete</button>
+    </div>
+    <div class="toolbar-group">
+      <button id="btn-undo" class="tool-btn" title="Undo (Ctrl+Z)">&#8630; Undo</button>
+      <button id="btn-redo" class="tool-btn" title="Redo (Ctrl+Y)">&#8631; Redo</button>
+    </div>
+    <div class="toolbar-group">
+      <label class="tool-label">Zoom</label>
+      <select id="zoom-select" class="tool-select">
+        <option value="day">Day</option>
+        <option value="week">Week</option>
+        <option value="month" selected>Month</option>
+        <option value="quarter">Quarter</option>
+        <option value="year">Year</option>
+      </select>
+      <button id="btn-today" class="tool-btn" title="Scroll to today">Today</button>
+      <button id="btn-today-marker" class="tool-btn toggle on" title="Show/hide the today line, on screen and in exports">Today Line</button>
+      <button id="btn-critical-path" class="tool-btn toggle" title="Highlight critical path">Critical Path</button>
+    </div>
+    <div class="toolbar-group">
+      <button id="btn-import" class="tool-btn">Import CSV/Excel</button>
+      <button id="btn-export-excel" class="tool-btn">Export to Excel</button>
+      <button id="btn-export-image" class="tool-btn" title="Export a clean chart image — ready to paste into PowerPoint">Export as Image</button>
+    </div>
+    <div class="toolbar-spacer"></div>
+    <div class="toolbar-group">
+      <button id="btn-save-file" class="tool-btn" title="Save project to a .json file">Save to File</button>
+      <button id="btn-load-file" class="tool-btn" title="Load project from a .json file">Load from File</button>
+      <button id="btn-settings" class="icon-btn" title="Settings">&#9881;</button>
+    </div>
+  </div>
+
+  <main class="main-split">
+    <section id="task-table-panel" class="task-table-panel">
+      <div id="task-table-scroll" class="task-table-scroll">
+        <table id="task-table" class="task-table">
+          <colgroup id="task-table-colgroup"></colgroup>
+          <thead id="task-table-head"></thead>
+          <tbody id="task-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+    <div id="panel-resizer" class="panel-resizer"></div>
+    <section id="gantt-panel" class="gantt-panel">
+      <div id="gantt-scroll" class="gantt-scroll">
+        <div id="gantt-content">
+          <svg id="gantt-header-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+          <svg id="gantt-body-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="statusbar" class="statusbar">
+    <span id="statusbar-stats"></span>
+    <span class="statusbar-credit">Built by Mubeen Raza</span>
+  </footer>
+</div>
+
+<!-- Task edit modal -->
+<div id="task-modal-backdrop" class="modal-backdrop hidden">
+  <div id="task-modal" class="modal"></div>
+</div>
+
+<!-- Settings modal -->
+<div id="settings-modal-backdrop" class="modal-backdrop hidden">
+  <div id="settings-modal" class="modal"></div>
+</div>
+
+<!-- Import wizard modal -->
+<div id="import-modal-backdrop" class="modal-backdrop hidden">
+  <div id="import-modal" class="modal modal-wide"></div>
+</div>
+
+<!-- New project modal -->
+<div id="newproject-modal-backdrop" class="modal-backdrop hidden">
+  <div id="newproject-modal" class="modal"></div>
+</div>
+
+<!-- Export options modal (column picker) -->
+<div id="export-options-modal-backdrop" class="modal-backdrop hidden">
+  <div id="export-options-modal" class="modal"></div>
+</div>
+
+<input type="file" id="file-input-project" accept=".json,application/json" style="display:none">
+<input type="file" id="file-input-import" accept=".csv,.xlsx,.xls" style="display:none">
+
+<div id="toast-container" class="toast-container"></div>
+
+<script src="vendor/exceljs.min.js"></script>
+<script src="sample-data/seed-project.js"></script>
+<script src="js/idGen.js"></script>
+<script src="js/dateUtils.js"></script>
+<script src="js/csvParser.js"></script>
+<script src="js/dependencyUtils.js"></script>
+<script src="js/criticalPath.js"></script>
+<script src="js/ganttLayout.js"></script>
+<script src="js/persistence.js"></script>
+<script src="js/state.js"></script>
+<script src="js/taskTable.js"></script>
+<script src="js/ganttChart.js"></script>
+<script src="js/dragInteractions.js"></script>
+<script src="js/taskEditModal.js"></script>
+<script src="js/settingsPanel.js"></script>
+<script src="js/projectSelector.js"></script>
+<script src="js/excelExport.js"></script>
+<script src="js/excelImport.js"></script>
+<script src="js/imageExport.js"></script>
+<script src="js/exportOptions.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

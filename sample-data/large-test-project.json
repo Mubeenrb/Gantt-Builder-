@@ -1,0 +1,1672 @@
+{
+  "fileFormatVersion": 1,
+  "project": {
+    "categories": [
+      {
+        "color": "#1976d2",
+        "id": "cat-proc",
+        "name": "Procurement"
+      },
+      {
+        "color": "#ef6c00",
+        "id": "cat-civil",
+        "name": "Civil"
+      },
+      {
+        "color": "#8d6e63",
+        "id": "cat-struct",
+        "name": "Structural"
+      },
+      {
+        "color": "#2e7d32",
+        "id": "cat-mech",
+        "name": "Mechanical"
+      },
+      {
+        "color": "#fbc02d",
+        "id": "cat-elec",
+        "name": "Electrical"
+      },
+      {
+        "color": "#7b1fa2",
+        "id": "cat-comm",
+        "name": "Commissioning"
+      }
+    ],
+    "customFieldDefs": [
+      {
+        "id": "cf-po",
+        "name": "PO Number",
+        "type": "text"
+      },
+      {
+        "id": "cf-vendor",
+        "name": "Vendor",
+        "type": "text"
+      },
+      {
+        "id": "cf-priority",
+        "name": "Priority",
+        "options": [
+          "Low",
+          "Medium",
+          "High"
+        ],
+        "type": "select"
+      },
+      {
+        "id": "cf-contract",
+        "name": "Contract Value",
+        "type": "number"
+      }
+    ],
+    "id": "large-test-line4-expansion",
+    "name": "Line 4 Expansion – Full CAPEX Programme (Test Data)",
+    "settings": {
+      "barHeight": 20,
+      "dateFormat": "dd/MM/yyyy",
+      "defaultZoom": "month",
+      "fontSize": 13,
+      "rowHeight": 32,
+      "theme": "light",
+      "visibleColumns": [
+        "category",
+        "start",
+        "end",
+        "duration",
+        "progress"
+      ],
+      "weekStart": "mon"
+    },
+    "tasks": [
+      {
+        "actualCost": 120000,
+        "assignee": "S. Ahmed",
+        "budget": 120000,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1002",
+          "cf-priority": "Low",
+          "cf-vendor": "Atlas Industrial Co."
+        },
+        "dependencies": [],
+        "end": "2026-08-15",
+        "id": "t2",
+        "name": "Concept Design",
+        "notes": "Duration: 15 days.",
+        "order": 1000,
+        "parentId": "p1",
+        "progress": 100,
+        "start": "2026-08-01",
+        "type": "task"
+      },
+      {
+        "actualCost": 64000,
+        "assignee": "M. Farooq",
+        "budget": 64000,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1003",
+          "cf-priority": "Medium",
+          "cf-vendor": "Metro Engineering"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t2",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-08-23",
+        "id": "t3",
+        "name": "Value Engineering Review",
+        "notes": "Duration: 8 days.",
+        "order": 2000,
+        "parentId": "p1",
+        "progress": 100,
+        "start": "2026-08-16",
+        "type": "task"
+      },
+      {
+        "actualCost": 72000,
+        "assignee": "R. Iqbal",
+        "budget": 200000,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-contract": 400000,
+          "cf-po": "PO-2026-1004",
+          "cf-priority": "High",
+          "cf-vendor": "Falcon Constructors"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t3",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-09-17",
+        "id": "t4",
+        "name": "Detailed Engineering",
+        "notes": "Duration: 25 days.",
+        "order": 3000,
+        "parentId": "p1",
+        "progress": 36,
+        "start": "2026-08-24",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "N. Sheikh",
+        "budget": null,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1005",
+          "cf-priority": "Low",
+          "cf-vendor": "Zenith Systems"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t4",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-09-18",
+        "id": "t5",
+        "name": "Design Review",
+        "notes": "",
+        "order": 4000,
+        "parentId": "p1",
+        "progress": 0,
+        "start": "2026-09-18",
+        "type": "milestone"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "A. Khan",
+        "budget": 80000,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1006",
+          "cf-priority": "Medium",
+          "cf-vendor": "Horizon Fabrication"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t5",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-09-28",
+        "id": "t6",
+        "name": "Permit Application",
+        "notes": "Duration: 10 days.",
+        "order": 5000,
+        "parentId": "p1",
+        "progress": 0,
+        "start": "2026-09-19",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "H. Malik",
+        "budget": null,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1007",
+          "cf-priority": "High",
+          "cf-vendor": "Atlas Industrial Co."
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t6",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-09-29",
+        "id": "t7",
+        "name": "Permit Approval",
+        "notes": "",
+        "order": 6000,
+        "parentId": "p1",
+        "progress": 0,
+        "start": "2026-09-29",
+        "type": "milestone"
+      },
+      {
+        "actualCost": null,
+        "assignee": "",
+        "budget": null,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {},
+        "dependencies": [],
+        "end": "2026-09-29",
+        "id": "p1",
+        "name": "Engineering & Design",
+        "notes": "Phase rollup.",
+        "order": 1000,
+        "parentId": null,
+        "progress": 0,
+        "start": "2026-08-01",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "T. Rashid",
+        "budget": 66500,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1009",
+          "cf-priority": "Low",
+          "cf-vendor": "Metro Engineering"
+        },
+        "dependencies": [
+          {
+            "lagDays": 20,
+            "predecessorId": "t2",
+            "type": "SS"
+          }
+        ],
+        "end": "2026-10-06",
+        "id": "t9",
+        "name": "Vendor RFQ Issue",
+        "notes": "Duration: 7 days.",
+        "order": 8000,
+        "parentId": "p8",
+        "progress": 0,
+        "start": "2026-09-30",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "S. Ahmed",
+        "budget": 95000,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1010",
+          "cf-priority": "Medium",
+          "cf-vendor": "Falcon Constructors"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t9",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-10-16",
+        "id": "t10",
+        "name": "Bid Evaluation",
+        "notes": "Duration: 10 days.",
+        "order": 9000,
+        "parentId": "p8",
+        "progress": 0,
+        "start": "2026-10-07",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "M. Farooq",
+        "budget": null,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1011",
+          "cf-priority": "High",
+          "cf-vendor": "Zenith Systems"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t10",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-10-17",
+        "id": "t11",
+        "name": "Purchase Order Award",
+        "notes": "",
+        "order": 10000,
+        "parentId": "p8",
+        "progress": 0,
+        "start": "2026-10-17",
+        "type": "milestone"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "R. Iqbal",
+        "budget": 665000,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-contract": 1330000,
+          "cf-po": "PO-2026-1012",
+          "cf-priority": "Low",
+          "cf-vendor": "Horizon Fabrication"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t11",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-12-26",
+        "id": "t12",
+        "name": "Long-Lead Equipment Manufacturing",
+        "notes": "Duration: 70 days.",
+        "order": 11000,
+        "parentId": "p8",
+        "progress": 0,
+        "start": "2026-10-18",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "N. Sheikh",
+        "budget": 47500,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1013",
+          "cf-priority": "Medium",
+          "cf-vendor": "Atlas Industrial Co."
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t12",
+            "type": "FS"
+          }
+        ],
+        "end": "2026-12-31",
+        "id": "t13",
+        "name": "Factory Acceptance Test",
+        "notes": "Duration: 5 days.",
+        "order": 12000,
+        "parentId": "p8",
+        "progress": 0,
+        "start": "2026-12-27",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "A. Khan",
+        "budget": 47500,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1014",
+          "cf-priority": "High",
+          "cf-vendor": "Metro Engineering"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t13",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-01-05",
+        "id": "t14",
+        "name": "Customs Clearance",
+        "notes": "Duration: 5 days.",
+        "order": 13000,
+        "parentId": "p8",
+        "progress": 0,
+        "start": "2027-01-01",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "H. Malik",
+        "budget": 190000,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-contract": 380000,
+          "cf-po": "PO-2026-1015",
+          "cf-priority": "Low",
+          "cf-vendor": "Falcon Constructors"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t14",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-01-25",
+        "id": "t15",
+        "name": "Equipment Shipment",
+        "notes": "Duration: 20 days.",
+        "order": 14000,
+        "parentId": "p8",
+        "progress": 0,
+        "start": "2027-01-06",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "T. Rashid",
+        "budget": null,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-po": "PO-2026-1016",
+          "cf-priority": "Medium",
+          "cf-vendor": "Zenith Systems"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t15",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-01-26",
+        "id": "t16",
+        "name": "Equipment Arrival on Site",
+        "notes": "",
+        "order": 15000,
+        "parentId": "p8",
+        "progress": 0,
+        "start": "2027-01-26",
+        "type": "milestone"
+      },
+      {
+        "actualCost": null,
+        "assignee": "",
+        "budget": null,
+        "categoryId": "cat-proc",
+        "collapsed": false,
+        "color": null,
+        "customFields": {},
+        "dependencies": [],
+        "end": "2027-01-26",
+        "id": "p8",
+        "name": "Procurement",
+        "notes": "Phase rollup.",
+        "order": 2000,
+        "parentId": null,
+        "progress": 0,
+        "start": "2026-09-30",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "S. Ahmed",
+        "budget": 55000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t7",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-01-31",
+        "id": "t18",
+        "name": "Site Mobilization",
+        "notes": "Duration: 5 days.",
+        "order": 17000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-01-27",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "M. Farooq",
+        "budget": 44000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t18",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-02-04",
+        "id": "t19",
+        "name": "Site Fencing & Security Setup",
+        "notes": "Duration: 4 days.",
+        "order": 18000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-02-01",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "R. Iqbal",
+        "budget": 110000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t19",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-02-14",
+        "id": "t20",
+        "name": "Site Clearance & Grading",
+        "notes": "Duration: 10 days.",
+        "order": 19000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-02-05",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "N. Sheikh",
+        "budget": 132000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t20",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-02-26",
+        "id": "t21",
+        "name": "Excavation",
+        "notes": "Duration: 12 days.",
+        "order": 20000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-02-15",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "A. Khan",
+        "budget": 165000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t21",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-03-13",
+        "id": "t22",
+        "name": "Formwork & Rebar",
+        "notes": "Duration: 15 days.",
+        "order": 21000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-02-27",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "H. Malik",
+        "budget": 88000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t22",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-03-21",
+        "id": "t23",
+        "name": "Foundation Concrete Pour",
+        "notes": "Duration: 8 days.",
+        "order": 22000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-03-14",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "T. Rashid",
+        "budget": 154000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t23",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-04-04",
+        "id": "t24",
+        "name": "Foundation Curing",
+        "notes": "Duration: 14 days.",
+        "order": 23000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-03-22",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "S. Ahmed",
+        "budget": null,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t24",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-04-05",
+        "id": "t25",
+        "name": "Civil Works Inspection",
+        "notes": "",
+        "order": 24000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-04-05",
+        "type": "milestone"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "M. Farooq",
+        "budget": 110000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t25",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-04-15",
+        "id": "t26",
+        "name": "Drainage & Utilities Trenching",
+        "notes": "Duration: 10 days.",
+        "order": 25000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-04-06",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "R. Iqbal",
+        "budget": 88000,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t26",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-04-23",
+        "id": "t27",
+        "name": "External Paving",
+        "notes": "Duration: 8 days.",
+        "order": 26000,
+        "parentId": "p17",
+        "progress": 0,
+        "start": "2027-04-16",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "",
+        "budget": null,
+        "categoryId": "cat-civil",
+        "collapsed": false,
+        "color": null,
+        "customFields": {},
+        "dependencies": [],
+        "end": "2027-04-23",
+        "id": "p17",
+        "name": "Civil Works",
+        "notes": "Phase rollup.",
+        "order": 3000,
+        "parentId": null,
+        "progress": 0,
+        "start": "2027-01-27",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "N. Sheikh",
+        "budget": 375000,
+        "categoryId": "cat-struct",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-contract": 750000,
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t25",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-05-23",
+        "id": "t29",
+        "name": "Steel Fabrication (Offsite)",
+        "notes": "Duration: 30 days.",
+        "order": 28000,
+        "parentId": "p28",
+        "progress": 0,
+        "start": "2027-04-24",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "A. Khan",
+        "budget": 87500,
+        "categoryId": "cat-struct",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t29",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-05-30",
+        "id": "t30",
+        "name": "Steel Delivery",
+        "notes": "Duration: 7 days.",
+        "order": 29000,
+        "parentId": "p28",
+        "progress": 0,
+        "start": "2027-05-24",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "H. Malik",
+        "budget": 250000,
+        "categoryId": "cat-struct",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-contract": 500000,
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t30",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-06-19",
+        "id": "t31",
+        "name": "Structural Steel Erection",
+        "notes": "Duration: 20 days.",
+        "order": 30000,
+        "parentId": "p28",
+        "progress": 0,
+        "start": "2027-05-31",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "T. Rashid",
+        "budget": 75000,
+        "categoryId": "cat-struct",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t31",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-06-25",
+        "id": "t32",
+        "name": "Fireproofing Application",
+        "notes": "Duration: 6 days.",
+        "order": 31000,
+        "parentId": "p28",
+        "progress": 0,
+        "start": "2027-06-20",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "S. Ahmed",
+        "budget": null,
+        "categoryId": "cat-struct",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t32",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-06-26",
+        "id": "t33",
+        "name": "Structural Inspection",
+        "notes": "",
+        "order": 32000,
+        "parentId": "p28",
+        "progress": 0,
+        "start": "2027-06-26",
+        "type": "milestone"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "M. Farooq",
+        "budget": 150000,
+        "categoryId": "cat-struct",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t33",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-07-08",
+        "id": "t34",
+        "name": "Roof Sheeting Installation",
+        "notes": "Duration: 12 days.",
+        "order": 33000,
+        "parentId": "p28",
+        "progress": 0,
+        "start": "2027-06-27",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "R. Iqbal",
+        "budget": 150000,
+        "categoryId": "cat-struct",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t34",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-07-20",
+        "id": "t35",
+        "name": "Wall Cladding Installation",
+        "notes": "Duration: 12 days.",
+        "order": 34000,
+        "parentId": "p28",
+        "progress": 0,
+        "start": "2027-07-09",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "",
+        "budget": null,
+        "categoryId": "cat-struct",
+        "collapsed": false,
+        "color": null,
+        "customFields": {},
+        "dependencies": [],
+        "end": "2027-07-20",
+        "id": "p28",
+        "name": "Structural Works",
+        "notes": "Phase rollup.",
+        "order": 4000,
+        "parentId": null,
+        "progress": 0,
+        "start": "2027-04-24",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "N. Sheikh",
+        "budget": 140000,
+        "categoryId": "cat-mech",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium",
+          "cf-vendor": "Horizon Fabrication"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t16",
+            "type": "FS"
+          },
+          {
+            "lagDays": 0,
+            "predecessorId": "t33",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-07-30",
+        "id": "t37",
+        "name": "Equipment Placement & Rigging",
+        "notes": "Duration: 10 days.",
+        "order": 36000,
+        "parentId": "p36",
+        "progress": 0,
+        "start": "2027-07-21",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "A. Khan",
+        "budget": 112000,
+        "categoryId": "cat-mech",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High",
+          "cf-vendor": "Atlas Industrial Co."
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t37",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-08-07",
+        "id": "t38",
+        "name": "Pump Skid Installation",
+        "notes": "Duration: 8 days.",
+        "order": 37000,
+        "parentId": "p36",
+        "progress": 0,
+        "start": "2027-07-31",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "H. Malik",
+        "budget": 280000,
+        "categoryId": "cat-mech",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-contract": 560000,
+          "cf-priority": "Low",
+          "cf-vendor": "Metro Engineering"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t38",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-08-27",
+        "id": "t39",
+        "name": "Process Piping Installation",
+        "notes": "Duration: 20 days.",
+        "order": 38000,
+        "parentId": "p36",
+        "progress": 0,
+        "start": "2027-08-08",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "T. Rashid",
+        "budget": 112000,
+        "categoryId": "cat-mech",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium",
+          "cf-vendor": "Falcon Constructors"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t39",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-09-04",
+        "id": "t40",
+        "name": "Mechanical Alignment & Torqueing",
+        "notes": "Duration: 8 days.",
+        "order": 39000,
+        "parentId": "p36",
+        "progress": 0,
+        "start": "2027-08-28",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "S. Ahmed",
+        "budget": 112000,
+        "categoryId": "cat-mech",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High",
+          "cf-vendor": "Zenith Systems"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t40",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-09-12",
+        "id": "t41",
+        "name": "Insulation & Painting",
+        "notes": "Duration: 8 days.",
+        "order": 40000,
+        "parentId": "p36",
+        "progress": 0,
+        "start": "2027-09-05",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "M. Farooq",
+        "budget": null,
+        "categoryId": "cat-mech",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low",
+          "cf-vendor": "Horizon Fabrication"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t41",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-09-13",
+        "id": "t42",
+        "name": "Mechanical Inspection",
+        "notes": "",
+        "order": 41000,
+        "parentId": "p36",
+        "progress": 0,
+        "start": "2027-09-13",
+        "type": "milestone"
+      },
+      {
+        "actualCost": null,
+        "assignee": "",
+        "budget": null,
+        "categoryId": "cat-mech",
+        "collapsed": false,
+        "color": null,
+        "customFields": {},
+        "dependencies": [],
+        "end": "2027-09-13",
+        "id": "p36",
+        "name": "Mechanical Installation",
+        "notes": "Phase rollup.",
+        "order": 5000,
+        "parentId": null,
+        "progress": 0,
+        "start": "2027-07-21",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "R. Iqbal",
+        "budget": 155000,
+        "categoryId": "cat-elec",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium",
+          "cf-vendor": "Atlas Industrial Co."
+        },
+        "dependencies": [
+          {
+            "lagDays": 12,
+            "predecessorId": "t37",
+            "type": "SS"
+          }
+        ],
+        "end": "2027-09-23",
+        "id": "t44",
+        "name": "Cable Tray Installation",
+        "notes": "Duration: 10 days.",
+        "order": 43000,
+        "parentId": "p43",
+        "progress": 0,
+        "start": "2027-09-14",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "N. Sheikh",
+        "budget": 186000,
+        "categoryId": "cat-elec",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High",
+          "cf-vendor": "Metro Engineering"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t44",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-10-05",
+        "id": "t45",
+        "name": "Power Cable Pulling",
+        "notes": "Duration: 12 days.",
+        "order": 44000,
+        "parentId": "p43",
+        "progress": 0,
+        "start": "2027-09-24",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "A. Khan",
+        "budget": 155000,
+        "categoryId": "cat-elec",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low",
+          "cf-vendor": "Falcon Constructors"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t45",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-10-15",
+        "id": "t46",
+        "name": "MCC & Switchgear Installation",
+        "notes": "Duration: 10 days.",
+        "order": 45000,
+        "parentId": "p43",
+        "progress": 0,
+        "start": "2027-10-06",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "H. Malik",
+        "budget": 93000,
+        "categoryId": "cat-elec",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium",
+          "cf-vendor": "Zenith Systems"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t46",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-10-21",
+        "id": "t47",
+        "name": "Earthing & Lightning Protection",
+        "notes": "Duration: 6 days.",
+        "order": 46000,
+        "parentId": "p43",
+        "progress": 0,
+        "start": "2027-10-16",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "T. Rashid",
+        "budget": 186000,
+        "categoryId": "cat-elec",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High",
+          "cf-vendor": "Horizon Fabrication"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t47",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-11-02",
+        "id": "t48",
+        "name": "Instrumentation Wiring",
+        "notes": "Duration: 12 days.",
+        "order": 47000,
+        "parentId": "p43",
+        "progress": 0,
+        "start": "2027-10-22",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "S. Ahmed",
+        "budget": 124000,
+        "categoryId": "cat-elec",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low",
+          "cf-vendor": "Atlas Industrial Co."
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t48",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-11-10",
+        "id": "t49",
+        "name": "Electrical Termination & Testing",
+        "notes": "Duration: 8 days.",
+        "order": 48000,
+        "parentId": "p43",
+        "progress": 0,
+        "start": "2027-11-03",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "M. Farooq",
+        "budget": null,
+        "categoryId": "cat-elec",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium",
+          "cf-vendor": "Metro Engineering"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t49",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-11-11",
+        "id": "t50",
+        "name": "Electrical Inspection",
+        "notes": "",
+        "order": 49000,
+        "parentId": "p43",
+        "progress": 0,
+        "start": "2027-11-11",
+        "type": "milestone"
+      },
+      {
+        "actualCost": null,
+        "assignee": "",
+        "budget": null,
+        "categoryId": "cat-elec",
+        "collapsed": false,
+        "color": null,
+        "customFields": {},
+        "dependencies": [],
+        "end": "2027-11-11",
+        "id": "p43",
+        "name": "Electrical & Instrumentation",
+        "notes": "Phase rollup.",
+        "order": 6000,
+        "parentId": null,
+        "progress": 0,
+        "start": "2027-09-14",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "R. Iqbal",
+        "budget": 119000,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t42",
+            "type": "FS"
+          },
+          {
+            "lagDays": 2,
+            "predecessorId": "t50",
+            "type": "FF"
+          }
+        ],
+        "end": "2027-11-18",
+        "id": "t52",
+        "name": "Pre-Commissioning Checks",
+        "notes": "Duration: 7 days.",
+        "order": 51000,
+        "parentId": "p51",
+        "progress": 0,
+        "start": "2027-11-12",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "N. Sheikh",
+        "budget": 102000,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t52",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-11-24",
+        "id": "t53",
+        "name": "Safety Systems Testing",
+        "notes": "Duration: 6 days.",
+        "order": 52000,
+        "parentId": "p51",
+        "progress": 0,
+        "start": "2027-11-19",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "A. Khan",
+        "budget": 170000,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t53",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-12-04",
+        "id": "t54",
+        "name": "Loop & Functional Testing",
+        "notes": "Duration: 10 days.",
+        "order": 53000,
+        "parentId": "p51",
+        "progress": 0,
+        "start": "2027-11-25",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "H. Malik",
+        "budget": 136000,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t54",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-12-12",
+        "id": "t55",
+        "name": "Performance Test Run",
+        "notes": "Duration: 8 days.",
+        "order": 54000,
+        "parentId": "p51",
+        "progress": 0,
+        "start": "2027-12-05",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "T. Rashid",
+        "budget": 170000,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t55",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-12-22",
+        "id": "t56",
+        "name": "Punch List Closure",
+        "notes": "Duration: 10 days.",
+        "order": 55000,
+        "parentId": "p51",
+        "progress": 0,
+        "start": "2027-12-13",
+        "type": "task"
+      },
+      {
+        "actualCost": 0,
+        "assignee": "S. Ahmed",
+        "budget": 85000,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Medium"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t56",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-12-27",
+        "id": "t57",
+        "name": "Operator Training",
+        "notes": "Duration: 5 days.",
+        "order": 56000,
+        "parentId": "p51",
+        "progress": 0,
+        "start": "2027-12-23",
+        "type": "task"
+      },
+      {
+        "actualCost": null,
+        "assignee": "M. Farooq",
+        "budget": null,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "High"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t57",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-12-28",
+        "id": "t58",
+        "name": "Final Acceptance",
+        "notes": "",
+        "order": 57000,
+        "parentId": "p51",
+        "progress": 0,
+        "start": "2027-12-28",
+        "type": "milestone"
+      },
+      {
+        "actualCost": null,
+        "assignee": "R. Iqbal",
+        "budget": null,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {
+          "cf-priority": "Low"
+        },
+        "dependencies": [
+          {
+            "lagDays": 0,
+            "predecessorId": "t58",
+            "type": "FS"
+          }
+        ],
+        "end": "2027-12-29",
+        "id": "t59",
+        "name": "Handover to Operations",
+        "notes": "",
+        "order": 58000,
+        "parentId": "p51",
+        "progress": 0,
+        "start": "2027-12-29",
+        "type": "milestone"
+      },
+      {
+        "actualCost": null,
+        "assignee": "",
+        "budget": null,
+        "categoryId": "cat-comm",
+        "collapsed": false,
+        "color": null,
+        "customFields": {},
+        "dependencies": [],
+        "end": "2027-12-29",
+        "id": "p51",
+        "name": "Commissioning",
+        "notes": "Phase rollup.",
+        "order": 7000,
+        "parentId": null,
+        "progress": 0,
+        "start": "2027-11-12",
+        "type": "task"
+      }
+    ]
+  }
+}
