@@ -39,8 +39,22 @@ CG.ExportOptions = (function () {
       extraToggles: [
         { id: 'showDate', label: "Include the “Generated on” date under the title", settingsKey: 'imageShowDate', defaultValue: false }
       ],
+      extraSelects: [
+        {
+          id: 'zoom', label: 'Timeline detail', settingsKey: 'imageExportZoom', defaultValue: 'auto',
+          hint: 'Auto picks the coarsest level that keeps the picture readable, based on how long this plan runs.',
+          options: [
+            { value: 'auto', label: 'Auto (recommended)' },
+            { value: 'day', label: 'Day' },
+            { value: 'week', label: 'Week' },
+            { value: 'month', label: 'Month' },
+            { value: 'quarter', label: 'Quarter' },
+            { value: 'year', label: 'Year' }
+          ]
+        }
+      ],
       run: function (project, selectedIds, extraValues) {
-        return CG.ImageExport.exportActiveProject({ columns: selectedIds, showDate: extraValues.showDate });
+        return CG.ImageExport.exportActiveProject({ columns: selectedIds, showDate: extraValues.showDate, zoom: extraValues.zoom });
       }
     }
   };
@@ -63,29 +77,47 @@ CG.ExportOptions = (function () {
       extraSelected[t.id] = savedVal === undefined ? t.defaultValue : !!savedVal;
     });
 
+    var extraSelects = ctx.extraSelects || [];
+    var extraSelectValues = {};
+    extraSelects.forEach(function (s) {
+      var savedVal = project.settings[s.settingsKey];
+      extraSelectValues[s.id] = savedVal === undefined ? s.defaultValue : savedVal;
+    });
+
     var backdrop = document.getElementById('export-options-modal-backdrop');
     var modal = document.getElementById('export-options-modal');
-    modal.innerHTML = buildHtml(ctx, allCols, selected, extraToggles, extraSelected);
+    modal.innerHTML = buildHtml(ctx, allCols, selected, extraToggles, extraSelected, extraSelects, extraSelectValues);
     backdrop.classList.remove('hidden');
     backdrop.onclick = function (ev) { if (ev.target === backdrop) close(); };
     document.getElementById('eo-close').onclick = close;
     document.getElementById('eo-cancel').onclick = close;
     document.getElementById('eo-all').onclick = function () { setAll(allCols, true); };
     document.getElementById('eo-none').onclick = function () { setAll(allCols, false); };
-    document.getElementById('eo-export').onclick = function () { confirm(ctx, project, allCols, extraToggles); };
+    document.getElementById('eo-export').onclick = function () { confirm(ctx, project, allCols, extraToggles, extraSelects); };
   }
 
-  function buildHtml(ctx, allCols, selected, extraToggles, extraSelected) {
+  function buildHtml(ctx, allCols, selected, extraToggles, extraSelected, extraSelects, extraSelectValues) {
     var rows = allCols.map(function (c) {
       return '<label class="column-toggle-row"><input type="checkbox" data-col-id="' + c.id + '"' + (selected[c.id] ? ' checked' : '') + '><span>' + escapeHtml(c.label) + '</span></label>';
     }).join('');
     var extraRows = extraToggles.map(function (t) {
       return '<label class="column-toggle-row"><input type="checkbox" data-extra-id="' + t.id + '"' + (extraSelected[t.id] ? ' checked' : '') + '><span>' + t.label + '</span></label>';
     }).join('');
+    var selectRows = (extraSelects || []).map(function (s) {
+      var opts = s.options.map(function (o) {
+        return '<option value="' + escapeHtml(o.value) + '"' + (extraSelectValues[s.id] === o.value ? ' selected' : '') + '>' + escapeHtml(o.label) + '</option>';
+      }).join('');
+      return '<div class="form-row">' +
+        '<label>' + escapeHtml(s.label) + '</label>' +
+        '<select data-select-id="' + s.id + '">' + opts + '</select>' +
+        (s.hint ? '<div style="font-size:11px;color:var(--text-muted);margin-top:3px">' + escapeHtml(s.hint) + '</div>' : '') +
+        '</div>';
+    }).join('');
     return '' +
       '<span class="close-x" id="eo-close">&times;</span>' +
       '<h2>' + escapeHtml(ctx.title) + '</h2>' +
       '<p style="font-size:12.5px;color:var(--text-muted)">' + ctx.intro + '</p>' +
+      selectRows +
       (extraRows ? '<div style="margin-bottom:10px">' + extraRows + '</div>' : '') +
       '<div style="display:flex;gap:8px;margin-bottom:8px">' +
       '<button class="btn" id="eo-all" type="button">Select All</button>' +
@@ -107,7 +139,7 @@ CG.ExportOptions = (function () {
 
   function close() { document.getElementById('export-options-modal-backdrop').classList.add('hidden'); }
 
-  function confirm(ctx, project, allCols, extraToggles) {
+  function confirm(ctx, project, allCols, extraToggles, extraSelects) {
     var selectedIds = allCols.map(function (c) { return c.id; })
       .filter(function (id) { var el = document.querySelector('#eo-columns input[data-col-id="' + id + '"]'); return el && el.checked; });
     var settingsPatch = {}; settingsPatch[ctx.settingsKey] = selectedIds;
@@ -118,6 +150,12 @@ CG.ExportOptions = (function () {
       var val = el ? el.checked : t.defaultValue;
       extraValues[t.id] = val;
       settingsPatch[t.settingsKey] = val;
+    });
+    (extraSelects || []).forEach(function (s) {
+      var el = document.querySelector('#export-options-modal select[data-select-id="' + s.id + '"]');
+      var val = el ? el.value : s.defaultValue;
+      extraValues[s.id] = val;
+      settingsPatch[s.settingsKey] = val;
     });
 
     S.updateSettings(project.id, settingsPatch);

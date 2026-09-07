@@ -47,6 +47,34 @@ CG.Layout = (function () {
     return { start: D.startOfMonth(minStart), end: D.addMonths(D.startOfMonth(maxEnd), 1) };
   }
 
+  // Raw task date span (no zoom padding) — used to auto-pick an export zoom
+  // level, independent of whatever zoom the live view happens to be on.
+  function taskSpanDays(project) {
+    var tasks = project.tasks;
+    if (!tasks.length) return 60;
+    var minStart = tasks[0].start, maxEnd = tasks[0].end;
+    tasks.forEach(function (t) {
+      if (D.isBefore(t.start, minStart)) minStart = t.start;
+      if (D.isAfter(t.end, maxEnd)) maxEnd = t.end;
+    });
+    return D.diffDays(maxEnd, minStart);
+  }
+
+  // Picks the coarsest zoom that still gives each period column a readable
+  // width for a chart this long — a 500-task, 3-year plan rendered at
+  // day/week zoom produces an image tens of thousands of pixels wide, which
+  // PowerPoint then has to shrink to fit a slide, making the text
+  // unreadable. Thresholds are chosen so the resulting chart width stays in
+  // roughly the same ballpark (~2000-4500px) across plan sizes.
+  function suggestZoom(project) {
+    var days = taskSpanDays(project);
+    if (days <= 75) return 'day';
+    if (days <= 240) return 'week';
+    if (days <= 540) return 'month';
+    if (days <= 1200) return 'quarter';
+    return 'year';
+  }
+
   function dateToX(iso, chartStart, pxPerDay) {
     return D.diffDays(iso, chartStart) * pxPerDay;
   }
@@ -141,6 +169,8 @@ CG.Layout = (function () {
     dateToX: dateToX,
     xToDayOffset: xToDayOffset,
     totalWidth: totalWidth,
-    buildHeaderTicks: buildHeaderTicks
+    buildHeaderTicks: buildHeaderTicks,
+    taskSpanDays: taskSpanDays,
+    suggestZoom: suggestZoom
   };
 })();

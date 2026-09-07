@@ -78,15 +78,36 @@ CG.ImageExport = (function () {
     return builtin.concat(custom);
   }
 
-  function buildSvg(project, selectedColumnIds, showDate) {
+  function buildSvg(project, selectedColumnIds, showDate, zoomOverride) {
     if (showDate === undefined) showDate = true;
     var ui = S.getUi();
-    var zoom = project.settings.defaultZoom;
+    // Independent of the live view's zoom: default to an auto-picked level
+    // based on the plan's actual date span, so a multi-year plan doesn't
+    // render at Day/Week granularity and come out too wide to read once
+    // pasted into a slide. An explicit override (from the export dialog)
+    // always wins.
+    var zoom = (zoomOverride && zoomOverride !== 'auto') ? zoomOverride : L.suggestZoom(project);
     var range = L.computeDateRange(project, zoom);
     var ticks = L.buildHeaderTicks(zoom, range, project.settings.weekStart);
+    // Quarter columns only say "Q1" by default — spell out the months they
+    // cover too, since a reader glancing at a printed slide shouldn't have
+    // to remember which calendar months make up "Q3".
+    if (zoom === 'quarter') {
+      ticks.minor.forEach(function (m) {
+        var lastMonth = D.addMonths(m.iso, 2);
+        m.label = m.label + ' (' + D.formatDate(m.iso, 'MMM') + '–' + D.formatDate(lastMonth, 'MMM') + ')';
+      });
+    }
     var pxPerDay = ticks.pxPerDay;
     var chartW = Math.max(L.totalWidth(range, pxPerDay), 300);
     var rows = S.getVisibleTasks(project);
+    // Only categories actually assigned to a shown task earn a legend entry —
+    // a project that defines a dozen categories but only uses three of them
+    // in this particular plan shouldn't clutter the picture with the other
+    // nine, unused ones.
+    var usedCategoryIds = {};
+    rows.forEach(function (r) { if (r.task.categoryId) usedCategoryIds[r.task.categoryId] = true; });
+    var usedCategories = project.categories.filter(function (c) { return usedCategoryIds[c.id]; });
     var rowH = project.settings.rowHeight;
     var barH = project.settings.barHeight;
     var headerH = (ticks.hasMajor ? HEADER_MAJOR_H : 0) + HEADER_MINOR_H;
@@ -107,7 +128,7 @@ CG.ImageExport = (function () {
     var titleH = subtitle ? TITLE_H : 26;
 
     var totalW = PADDING * 2 + leftW + chartW;
-    var legendH = project.categories.length ? LEGEND_ROW_H + 14 : 0;
+    var legendH = usedCategories.length ? LEGEND_ROW_H + 14 : 0;
     var totalH = PADDING * 2 + titleH + headerH + bodyH + legendH;
 
     var chartX = PADDING + leftW;
@@ -291,10 +312,10 @@ CG.ImageExport = (function () {
     }
 
     // Legend
-    if (project.categories.length) {
+    if (usedCategories.length) {
       var legendY = bodyTop + bodyH + 20;
       var lx = PADDING;
-      project.categories.forEach(function (cat) {
+      usedCategories.forEach(function (cat) {
         parts.push('<rect x="' + lx + '" y="' + (legendY - 10) + '" width="12" height="12" rx="2" fill="' + cat.color + '"/>');
         var label = esc(cat.name);
         parts.push('<text x="' + (lx + 17) + '" y="' + legendY + '" font-size="10.5" fill="#444444">' + label + '</text>');
@@ -351,7 +372,7 @@ CG.ImageExport = (function () {
   async function exportActiveProject(options) {
     var project = S.getActiveProject();
     if (!project) { CG.Toast.show('No project open to export.', 'error'); return; }
-    var built = buildSvg(project, options && options.columns, !!(options && options.showDate === true));
+    var built = buildSvg(project, options && options.columns, !!(options && options.showDate === true), options && options.zoom);
     var blob = await svgToPngBlob(built.svg, built.width, built.height, 2);
     var filename = CG.Persistence.slugify(project.name) + '-gantt-' + D.todayISO() + '.png';
     var result = await CG.Persistence.saveBinaryToFile(blob, filename, 'image/png');
