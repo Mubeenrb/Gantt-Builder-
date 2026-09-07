@@ -89,14 +89,31 @@ CG.ImageExport = (function () {
     var zoom = (zoomOverride && zoomOverride !== 'auto') ? zoomOverride : L.suggestZoom(project);
     var range = L.computeDateRange(project, zoom);
     var ticks = L.buildHeaderTicks(zoom, range, project.settings.weekStart);
-    // Quarter columns only say "Q1" by default — spell out the months they
-    // cover too, since a reader glancing at a printed slide shouldn't have
-    // to remember which calendar months make up "Q3".
+    // A single "Q3" column is too coarse to read a schedule against — split
+    // each quarter into its 3 calendar months (own gridline + "Jan"/"Feb"/
+    // "Mar" label), with the quarter itself promoted to the major band
+    // above (e.g. "Q3 2027") instead of the plain year. Uses quarter's own
+    // (coarser) px/day scale throughout, so the chart's total width — and
+    // the whole point of auto-picking Quarter for a long plan — is unchanged.
     if (zoom === 'quarter') {
-      ticks.minor.forEach(function (m) {
-        var lastMonth = D.addMonths(m.iso, 2);
-        m.label = m.label + ' (' + D.formatDate(m.iso, 'MMM') + '–' + D.formatDate(lastMonth, 'MMM') + ')';
+      var qPxPerDay = ticks.pxPerDay;
+      var monthMinor = [];
+      var mCursor = D.startOfMonth(range.start);
+      while (D.isBefore(mCursor, range.end)) {
+        var mNext = D.addMonths(mCursor, 1);
+        monthMinor.push({
+          iso: mCursor,
+          x: L.dateToX(mCursor, range.start, qPxPerDay),
+          width: D.diffDays(mNext, mCursor) * qPxPerDay,
+          label: D.formatDate(mCursor, 'MMM')
+        });
+        mCursor = mNext;
+      }
+      var quarterMajor = ticks.minor.map(function (m) {
+        var qNum = Math.floor(Number(m.iso.split('-')[1]) / 3) + 1;
+        return { iso: m.iso, x: m.x, width: m.width, label: 'Q' + qNum + ' ' + m.iso.slice(0, 4) };
       });
+      ticks = { minor: monthMinor, major: quarterMajor, pxPerDay: qPxPerDay, hasMajor: true };
     }
     var pxPerDay = ticks.pxPerDay;
     var chartW = Math.max(L.totalWidth(range, pxPerDay), 300);
