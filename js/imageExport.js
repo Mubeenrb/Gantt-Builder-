@@ -17,6 +17,14 @@ CG.ImageExport = (function () {
   var TITLE_H = 44, LEGEND_ROW_H = 22, PADDING = 18;
   var HEADER_MAJOR_H = 20, HEADER_MINOR_H = 24;
 
+  // The live view's px/day values (js/ganttLayout.js) are tuned for
+  // interactive dragging precision — a mouse needs several pixels of slack
+  // per day to grab and resize a bar accurately. An export never gets
+  // dragged, so it can run noticeably tighter to keep the chart from
+  // stretching into a long, thin strip once pasted into a slide. Roughly
+  // half the live view's scale at every zoom level.
+  var EXPORT_PX_PER_DAY = { day: 26, week: 11, month: 4, quarter: 1.6, year: 0.7 };
+
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
@@ -89,6 +97,13 @@ CG.ImageExport = (function () {
     var zoom = (zoomOverride && zoomOverride !== 'auto') ? zoomOverride : L.suggestZoom(project);
     var range = L.computeDateRange(project, zoom);
     var ticks = L.buildHeaderTicks(zoom, range, project.settings.weekStart);
+    var exportPxPerDay = EXPORT_PX_PER_DAY[zoom] || ticks.pxPerDay;
+    if (exportPxPerDay !== ticks.pxPerDay) {
+      var compressScale = exportPxPerDay / ticks.pxPerDay;
+      ticks.minor.forEach(function (m) { m.x *= compressScale; m.width *= compressScale; });
+      ticks.major.forEach(function (m) { m.x *= compressScale; m.width *= compressScale; });
+      ticks.pxPerDay = exportPxPerDay;
+    }
     // A single "Q3" column is too coarse to read a schedule against — split
     // each quarter into its 3 calendar months (own gridline + "Jan"/"Feb"/
     // "Mar" label), with the quarter itself promoted to the major band
