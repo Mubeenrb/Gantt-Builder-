@@ -64,14 +64,18 @@ CG.Layout = (function () {
   // width for a chart this long — a 500-task, 3-year plan rendered at
   // day/week zoom produces an image tens of thousands of pixels wide, which
   // PowerPoint then has to shrink to fit a slide, making the text
-  // unreadable. Thresholds are chosen so the resulting chart width stays in
-  // roughly the same ballpark (~2000-4500px) across plan sizes.
+  // unreadable. What actually makes a slide feel "too busy" isn't raw pixel
+  // width alone though — it's gridline/label density, so Week (with its
+  // W1-W4 sub-ticks under every month) is reserved for genuinely short
+  // plans; anything from a few months up to ~2 years defaults to Month —
+  // one clean gridline and label per month, no sub-divisions — which is the
+  // width/detail balance that actually fits a slide well.
   function suggestZoom(project) {
     var days = taskSpanDays(project);
-    if (days <= 75) return 'day';
-    if (days <= 240) return 'week';
-    if (days <= 540) return 'month';
-    if (days <= 1200) return 'quarter';
+    if (days <= 30) return 'day';
+    if (days <= 90) return 'week';
+    if (days <= 730) return 'month';
+    if (days <= 1460) return 'quarter';
     return 'year';
   }
 
